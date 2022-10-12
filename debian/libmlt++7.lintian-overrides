@@ -1,0 +1,2 @@
+libmlt++7: no-symbols-control-file usr/lib/*/libmlt++-*.so.*
+libmlt++7: package-name-doesnt-match-sonames libmlt++-7-7

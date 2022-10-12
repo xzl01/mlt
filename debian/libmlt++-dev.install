@@ -1,0 +1,4 @@
+usr/include/mlt-*/mlt++/*.h
+usr/lib/*/libmlt++-*.so
+usr/lib/*/pkgconfig/mlt++-*.pc
+src/swig/mlt.i usr/include/mlt-7/mlt++/

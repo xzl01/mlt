@@ -1,0 +1,4 @@
+version=4
+opts=dversionmangle=s/\+git\d+//;s/\+dfsg\d// \
+https://github.com/mltframework/mlt/releases \
+/mltframework/mlt/archive/refs/tags/v(.+)\.tar\.gz

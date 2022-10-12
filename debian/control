@@ -1,0 +1,153 @@
+Source: mlt
+Priority: optional
+Maintainer: Patrick Matthäi <pmatthaei@debian.org>
+Build-Depends: debhelper-compat (= 13),
+ ffmpeg,
+ libqt5opengl5-dev,
+ libqt5svg5-dev,
+ ladspa-sdk,
+ libavdevice-dev,
+ libavformat-dev,
+ libdv4-dev,
+ libexif-dev,
+ libgdk-pixbuf2.0-dev,
+ libmovit-dev,
+ libfftw3-dev,
+ libjack-dev,
+ libpango1.0-dev,
+ libsamplerate-dev,
+ libsdl1.2-dev,
+ libsdl2-dev,
+ libsox-dev (>= 14.3.0),
+ libswscale-dev,
+ librubberband-dev,
+ libopencv-dev,
+ libvorbis-dev,
+ libvidstab-dev,
+ libxine2-dev,
+ libxml2-dev,
+ librtaudio-dev [linux-any],
+ imagemagick,
+ frei0r-plugins-dev,
+ swig,
+ libebur128-dev (>= 1.2.0-2),
+ python3-dev,
+ cmake,
+ chrpath,
+ dh-python
+Standards-Version: 4.6.0
+Section: libs
+Rules-Requires-Root: no
+Homepage: https://www.mltframework.org
+
+Package: libmlt-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends: ${misc:Depends},
+ libmlt7 (= ${binary:Version})
+Description: multimedia framework (development)
+ MLT is an open source multimedia framework, designed and developed for
+ television broadcasting. It provides a toolkit for broadcasters, video
+ editors, media players, transcoders, web streamers and many more types of
+ applications. The functionality of the system is provided via an assortment
+ of ready to use tools, xml authoring components, and an extendible plug-in
+ based API.
+ .
+ This package contains the static libraries and headers for developing
+ applications that use the MLT multimedia framework.
+
+Package: libmlt7
+Architecture: any
+Multi-Arch: same
+Depends: ${shlibs:Depends},
+ ${misc:Depends}
+Recommends: libmlt-data (>= ${source:Version})
+Description: multimedia framework (runtime)
+ MLT is an open source multimedia framework, designed and developed for
+ television broadcasting. It provides a toolkit for broadcasters, video
+ editors, media players, transcoders, web streamers and many more types of
+ applications. The functionality of the system is provided via an assortment
+ of ready to use tools, xml authoring components, and an extendible plug-in
+ based API.
+ .
+ This package contains the files necessary for running applications that
+ use the MLT multimedia framework.
+
+Package: libmlt-data
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends}
+Enhances: libmlt7
+Description: multimedia framework (data)
+ MLT is an open source multimedia framework, designed and developed for
+ television broadcasting. It provides a toolkit for broadcasters, video
+ editors, media players, transcoders, web streamers and many more types of
+ applications. The functionality of the system is provided via an assortment
+ of ready to use tools, xml authoring components, and an extendible plug-in
+ based API.
+ .
+ This package contains the data files for the MLT multimedia framework.
+
+Package: libmlt++-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends: libmlt++7 (= ${binary:Version}),
+ ${misc:Depends}
+Description: MLT multimedia framework C++ wrapper (development)
+ MLT is an open source multimedia framework, designed and developed for
+ television broadcasting. It provides a toolkit for broadcasters, video
+ editors, media players, transcoders, web streamers and many more types of
+ applications. The functionality of the system is provided via an assortment
+ of ready to use tools, xml authoring components, and an extendible plug-in
+ based API.
+ .
+ This package contains the static libraries and headers for developing
+ applications that use the MLT multimedia framework C++ wrapper.
+
+Package: libmlt++7
+Architecture: any
+Multi-Arch: same
+Depends: ${shlibs:Depends},
+ ${misc:Depends}
+Description: MLT multimedia framework C++ wrapper (runtime)
+ MLT is an open source multimedia framework, designed and developed for
+ television broadcasting. It provides a toolkit for broadcasters, video
+ editors, media players, transcoders, web streamers and many more types of
+ applications. The functionality of the system is provided via an assortment
+ of ready to use tools, xml authoring components, and an extendible plug-in
+ based API.
+ .
+ This package contains the files necessary for running applications that
+ use the MLT multimedia framework C++ wrapper.
+
+Package: melt
+Section: utils
+Architecture: any
+Depends: ${shlibs:Depends},
+ ${misc:Depends},
+ libmlt-data (>= ${source:Version})
+Description: command line media player and video editor
+ melt was meant as a test tool for the MLT framework, but it is also a powerful
+ multitrack command line oriented video editor. It could also used as an
+ minimalistic media player for audio and video files.
+
+Package: python3-mlt
+Architecture: any
+Section: python
+Depends: ${shlibs:Depends},
+ ${misc:Depends},
+ ${python3:Depends}
+Provides: ${python3:Provides}
+Conflicts: python-mlt
+Replaces: python-mlt
+Description: multimedia framework (Python bindings)
+ MLT is an open source multimedia framework, designed and developed for
+ television broadcasting. It provides a toolkit for broadcasters, video
+ editors, media players, transcoders, web streamers and many more types of
+ applications. The functionality of the system is provided via an assortment
+ of ready to use tools, xml authoring components, and an extendible plug-in
+ based API.
+ .
+ This package contains the Python bindings for the mlt package.
