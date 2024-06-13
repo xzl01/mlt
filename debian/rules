@@ -3,11 +3,12 @@
 export DEB_BUILD_MAINT_OPTIONS=hardening=+all buildinfo=+path
 
 DEB_CONFIGURE_EXTRA_FLAGS := \
+	-DMOD_GLAXNIMATE=ON \
 	-DSWIG_PYTHON=ON \
 	-DMOD_OPENCV=ON
 
 %:
-	dh $@ --with python3
+	dh $@ --with python3 --buildsystem=cmake
 
 override_dh_install:
 	chrpath -d -k $(CURDIR)/debian/tmp/usr/bin/melt-7

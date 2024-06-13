@@ -1,3 +1,3 @@
-mlt source: debian-watch-does-not-check-gpg-signature
+mlt source: debian-watch-does-not-check-openpgp-signature
 mlt source: intra-source-package-circular-dependency libmlt++7 libmlt7
 mlt source: upstream-metadata-file-is-missing

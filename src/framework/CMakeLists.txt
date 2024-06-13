@@ -1,4 +1,4 @@
-set(MLT_PUPLIC_HEADERS
+set(MLT_PUBLIC_HEADERS
   mlt.h
   mlt_animation.h
   mlt_audio.h
@@ -63,10 +63,20 @@ add_library(mlt SHARED
   mlt_tokeniser.c
   mlt_tractor.c
   mlt_transition.c
+  mlt_types.c
   mlt_version.c
 )
 
+add_custom_target("Other_mlt_Files" SOURCES
+  chain_normalizers.ini
+  metaschema.yaml
+  mlt-framework.pc.in
+  mlt.vers
+)
+
 add_library(Mlt${MLT_VERSION_MAJOR}::mlt ALIAS mlt)
+
+target_sources(mlt PRIVATE ${MLT_PUBLIC_HEADERS})
 
 target_compile_options(mlt PRIVATE ${MLT_COMPILE_OPTIONS})
 
@@ -81,17 +91,13 @@ set_target_properties(mlt PROPERTIES
   VERSION ${MLT_VERSION}
   SOVERSION ${MLT_VERSION_MAJOR}
   OUTPUT_NAME mlt-${MLT_VERSION_MAJOR}
-  PUBLIC_HEADER "${MLT_PUPLIC_HEADERS}"
+  PUBLIC_HEADER "${MLT_PUBLIC_HEADERS}"
 )
 
 if(WIN32)
   if(MINGW)
-    install(FILES "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/libmlt-${MLT_VERSION_MAJOR}.dll"
-      DESTINATION ${CMAKE_INSTALL_LIBDIR}
-      RENAME libmlt.dll
-    )
-    target_link_options(mlt PRIVATE -Wl,--output-def,libmlt.def)
-    install(FILES "${CMAKE_BINARY_DIR}/libmlt.def" DESTINATION ${CMAKE_INSTALL_LIBDIR})
+    target_link_options(mlt PRIVATE -Wl,--output-def,${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/libmlt-${MLT_VERSION_MAJOR}.def)
+    install(FILES "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/libmlt-${MLT_VERSION_MAJOR}.def" DESTINATION ${CMAKE_INSTALL_LIBDIR})
   endif()
   target_sources(mlt PRIVATE ../win32/win32.c ../win32/strptime.c)
   target_link_libraries(mlt PRIVATE Iconv::Iconv)
@@ -120,7 +126,7 @@ install(TARGETS mlt
   PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/mlt-${MLT_VERSION_MAJOR}/framework
 )
 
-install(FILES metaschema.yaml DESTINATION ${MLT_INSTALL_DATA_DIR})
+install(FILES metaschema.yaml chain_normalizers.ini DESTINATION ${MLT_INSTALL_DATA_DIR})
 
 configure_file(mlt-framework.pc.in mlt-framework-${MLT_VERSION_MAJOR}.pc @ONLY)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/mlt-framework-${MLT_VERSION_MAJOR}.pc

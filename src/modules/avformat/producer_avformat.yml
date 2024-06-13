@@ -2,14 +2,11 @@ schema_version: 0.3
 type: producer
 identifier: avformat
 title: FFmpeg Reader
-version: 2
-copyright: Copyright (C) 2003-2019 Meltytech, LLC
-license: LGPL
+version: 3
+copyright: Meltytech, LLC
+license: LGPLv2.1
 language: en
 url: http://www.ffmpeg.org/
-creator: Charles Yates
-contributor:
-  - Dan Dennedy
 tags:
   - Audio
   - Video
@@ -58,11 +55,11 @@ parameters:
     mutable: no
     widget: fileopen # could provide a button to use a file-open dialog 
 
-  - identifier: audio_index # the name is the mlt_properties name
+  - identifier: audio_index
     title: Audio index
     type: integer
     description: >
-      Choose the index of audio stream to use (-1 is off).
+      Choose the absolute stream index of audio stream to use (-1 is off).
       When this value is equal to the maximum size of a 32-bit signed integer
       or the string "all" then all audio tracks are coalesced into a bundle of
       channels on one audio track.
@@ -72,10 +69,37 @@ parameters:
     default: 0
     widget: spinner
 
+  - identifier: astream
+    title: Audio Stream
+    type: integer
+    description: >
+      Choose the relative stream index (n-th) of audio to use (-1 is off).
+      When this value is equal to the maximum size of a 32-bit signed integer
+      or the string "all" then all audio tracks are coalesced into a bundle of
+      channels on one audio track.
+      This property has a higher priority than audio_index.
+    readonly: no
+    mutable: no
+    minimum: -1
+    default: 0
+    widget: spinner
+
   - identifier: video_index
     title: Video index
     type: integer
-    description: Choose the index of video stream to use (-1 is off)
+    description: Choose the absolute index of video stream to use (-1 is off)
+    readonly: no
+    mutable: no
+    minimum: -1
+    default: 0
+    widget: spinner
+
+  - identifier: vstream
+    title: Video Stream
+    type: integer
+    description: >
+      Choose the relative stream index (n-th) of video to use (-1 is off).
+      This property has a higher priority than video_index.
     readonly: no
     mutable: no
     minimum: -1
@@ -167,6 +191,11 @@ parameters:
     type: float
     widget: checkbox
 
+  - identifier: force_full_range
+    title: Force Full Range Color
+    description: When provided, this overrides the detected color range of the video (Y'CbCr only).
+    type: boolean
+
   - identifier: force_colorspace
     title: Force colorspace
     description: When provided, this overrides the detected colorspace of the video (Y'CbCr only).
@@ -209,12 +238,12 @@ parameters:
     type: boolean
     widget: checkbox
 
-  - identifier: mute_on_pause
+  - identifier: mute_on_pause (*DEPRECATED*)
     title: Mute on Pause
     description: >
       Mute the audio when the same frame is requested twice in a row.
     type: boolean
-    default: 1
+    default: 0
     widget: checkbox
 
   - identifier: seek_threshold
@@ -226,6 +255,7 @@ parameters:
       cause libavformat to face issues in seeking and where user tries to minimize the
       number of seek calls.
     type: integer
+    default: 64
     unit: frames
 
   - identifier: autorotate
@@ -235,3 +265,17 @@ parameters:
       Whether to automatically compensate image orientation if the file is
       tagged with appropriate metadata and this resource has video/images.
     default: 1
+
+  - identifier: rotate
+    title: Rotation Override
+    description: >
+      While there is automatic rotation for orientation, some files are missing
+      the metadata for it. This provides an override. It can only rotate by a
+      multiple of 90 degrees.
+    type: integer
+    unit: degrees
+
+  - identifier: filtergraph
+    title: Filtergraph
+    type: string
+    description: Filtergraph to apply to resource. Uses libavfilter syntax.

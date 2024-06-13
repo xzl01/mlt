@@ -1,8 +1,113 @@
-mlt (7.2.0-1) UNRELEASED; urgency=medium
+mlt (7.24.0-1) unstable; urgency=medium
 
-  * update
+  * New upstream release.
 
- -- Patrick Matthäi <pmatthaei@debian.org>  Wed, 25 May 2022 20:41:53 +0800
+ -- Patrick Matthäi <pmatthaei@debian.org>  Mon, 29 Apr 2024 11:24:38 +0200
+
+mlt (7.22.0-1) unstable; urgency=medium
+
+  * New upstream release.
+    - Remove merged patch 01-rtaudio6.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Thu, 07 Dec 2023 08:42:35 +0100
+
+mlt (7.20.0-1) unstable; urgency=high
+
+  * New upstream release.
+  * Add patch to fix a FTBFS with RTAudio version 6.
+    Closes: #1051570
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Fri, 20 Oct 2023 10:14:41 +0200
+
+mlt (7.18.0-2) unstable; urgency=medium
+
+  * Remove leftover file in dh_clean.
+    Closes: #1046679
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Tue, 22 Aug 2023 16:32:32 +0200
+
+mlt (7.18.0-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Adjust lintian overrides.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Wed, 02 Aug 2023 13:20:41 +0200
+
+mlt (7.16.0-2) unstable; urgency=high
+
+  * Correct install path for python module to work also with Python 3.11.
+    Closes: #1041664, #1042208
+  * Adjust lintian overrides.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Thu, 27 Jul 2023 10:27:16 +0200
+
+mlt (7.16.0-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Use libsdl1.2-compat-dev for the SDL 1.2 plugin.
+    Closes: #1038506
+  * Switch build dependency from libgdk-pixbuf2.0-dev to libgdk-pixbuf-2.0-dev.
+    Closes: #1037396
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Sun, 02 Jul 2023 16:30:11 +0200
+
+mlt (7.14.0-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Bump Standards-Version to 4.6.2.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Thu, 09 Mar 2023 16:35:09 +0100
+
+mlt (7.12.0-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Tue, 22 Nov 2022 15:11:24 +0100
+
+mlt (7.10.0-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Adjust debian/watch to work again with GitHub.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Wed, 09 Nov 2022 15:30:46 +0100
+
+mlt (7.8.0+repack1-2) unstable; urgency=medium
+
+  * Adjust renamed lintian tag name in override.
+  * Adjust lintian overrides.
+  * Adjust debian/watch to mangle the repack from the version string.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Wed, 14 Sep 2022 14:37:44 +0200
+
+mlt (7.8.0+repack1-1) unstable; urgency=medium
+
+  * Use correct upstream tarball.
+  * Add libarchive-dev build dependency.
+  * Build new glaxnimate submodule.
+  * Adjust lintian overrides.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Mon, 29 Aug 2022 10:38:59 +0200
+
+mlt (7.8.0-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Bump Standards-Version to 4.6.1.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Tue, 28 Jun 2022 11:41:56 +0200
+
+mlt (7.6.0-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Explicit use buildsystem cmake.
+  * Adjust lintian overrides.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Wed, 13 Apr 2022 11:11:30 +0200
+
+mlt (7.4.0-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Mon, 20 Dec 2021 14:13:58 +0100
 
 mlt (7.2.0-1) unstable; urgency=medium
 

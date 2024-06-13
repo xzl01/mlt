@@ -5,18 +5,19 @@ Build-Depends: debhelper-compat (= 13),
  ffmpeg,
  libqt5opengl5-dev,
  libqt5svg5-dev,
+ libarchive-dev,
  ladspa-sdk,
  libavdevice-dev,
  libavformat-dev,
  libdv4-dev,
  libexif-dev,
- libgdk-pixbuf2.0-dev,
+ libgdk-pixbuf-2.0-dev,
  libmovit-dev,
  libfftw3-dev,
  libjack-dev,
  libpango1.0-dev,
  libsamplerate-dev,
- libsdl1.2-dev,
+ libsdl1.2-compat-dev,
  libsdl2-dev,
  libsox-dev (>= 14.3.0),
  libswscale-dev,
@@ -35,7 +36,7 @@ Build-Depends: debhelper-compat (= 13),
  cmake,
  chrpath,
  dh-python
-Standards-Version: 4.6.0
+Standards-Version: 4.6.2
 Section: libs
 Rules-Requires-Root: no
 Homepage: https://www.mltframework.org

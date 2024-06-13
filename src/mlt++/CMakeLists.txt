@@ -1,4 +1,4 @@
-set(MLTPP_PUPLIC_HEADERS
+set(MLTPP_PUBLIC_HEADERS
   Mlt.h
   MltAnimation.h
   MltAudio.h
@@ -58,7 +58,14 @@ add_library(mlt++ SHARED
   MltTransition.cpp
 )
 
+add_custom_target("Other_mlt++_Files" SOURCES
+  mlt++.pc.in
+  mlt++.vers
+)
+
 add_library(Mlt${MLT_VERSION_MAJOR}::mlt++ ALIAS mlt++)
+
+target_sources(mlt++ PRIVATE ${MLTPP_PUBLIC_HEADERS})
 
 target_compile_options(mlt++ PRIVATE ${MLT_COMPILE_OPTIONS})
 
@@ -73,17 +80,13 @@ set_target_properties(mlt++ PROPERTIES
   VERSION ${MLT_VERSION}
   SOVERSION ${MLT_VERSION_MAJOR}
   OUTPUT_NAME mlt++-${MLT_VERSION_MAJOR}
-  PUBLIC_HEADER "${MLTPP_PUPLIC_HEADERS}"
+  PUBLIC_HEADER "${MLTPP_PUBLIC_HEADERS}"
 )
 
 if(WIN32)
   if(MINGW)
-    install(FILES "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/libmlt++-${MLT_VERSION_MAJOR}.dll"
-      DESTINATION ${CMAKE_INSTALL_LIBDIR}
-      RENAME libmlt++.dll
-    )
-    target_link_options(mlt++ PRIVATE -Wl,--output-def,libmlt++.def)
-    install(FILES "${CMAKE_BINARY_DIR}/libmlt++.def" DESTINATION ${CMAKE_INSTALL_LIBDIR})
+    target_link_options(mlt++ PRIVATE -Wl,--output-def,${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/libmlt++-${MLT_VERSION_MAJOR}.def)
+    install(FILES "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/libmlt++-${MLT_VERSION_MAJOR}.def" DESTINATION ${CMAKE_INSTALL_LIBDIR})
   endif()
   target_compile_definitions(mlt++ PRIVATE MLTPP_EXPORTS)
 endif()

@@ -1,6 +1,6 @@
 /**
  * MltLink.h - MLT Wrapper
- * Copyright (C) 2020 Meltytech, LLC
+ * Copyright (C) 2020-2021 Meltytech, LLC
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,28 +22,32 @@
 
 #include "MltConfig.h"
 #include "MltProducer.h"
-#include "MltProducer.h"
 
 #include <framework/mlt.h>
 
-namespace Mlt
-{
-	class Producer;
-	class Profile;
+namespace Mlt {
+class Producer;
+class Profile;
 
-	class MLTPP_DECLSPEC Link : public Producer
-	{
-		private:
-			mlt_link instance;
-		public:
-			Link( );
-			Link( mlt_link link );
-			Link( const char* id, const char* service = NULL );
-			virtual ~Link( );
-			virtual mlt_link get_link( );
-			mlt_producer get_producer( );
-			int connect_next( Mlt::Producer& next, Mlt::Profile& default_profile );
-	};
-}
+class MLTPP_DECLSPEC Link : public Producer
+{
+private:
+    mlt_link instance;
+
+public:
+    Link();
+    Link(mlt_link link);
+    Link(const char *id, const char *service = NULL);
+    Link(Link *link);
+    Link(Service &link);
+    Link(Link &link);
+    Link(const Link &link);
+    Link &operator=(const Link &link);
+    virtual ~Link();
+    virtual mlt_link get_link();
+    mlt_producer get_producer() override;
+    int connect_next(Mlt::Producer &next, Mlt::Profile &default_profile);
+};
+} // namespace Mlt
 
 #endif

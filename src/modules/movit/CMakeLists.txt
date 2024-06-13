@@ -1,6 +1,6 @@
 add_library(mltmovit MODULE
   factory.c
-  filter_glsl_manager.cpp
+  filter_glsl_manager.cpp filter_glsl_manager.h
   filter_movit_blur.cpp
   filter_movit_convert.cpp
   filter_movit_crop.cpp
@@ -17,10 +17,16 @@ add_library(mltmovit MODULE
   filter_movit_saturation.cpp
   filter_movit_vignette.cpp
   filter_movit_white_balance.cpp
-  mlt_movit_input.cpp
+  mlt_movit_input.cpp mlt_movit_input.h
+  optional_effect.h
   transition_movit_luma.cpp
   transition_movit_mix.cpp
   transition_movit_overlay.cpp
+)
+
+file(GLOB YML "*.yml")
+add_custom_target(Other_movit_Files SOURCES
+  ${YML}
 )
 
 target_compile_options(mltmovit PRIVATE ${MLT_COMPILE_OPTIONS})
@@ -44,6 +50,8 @@ install(TARGETS mltmovit LIBRARY DESTINATION ${MLT_INSTALL_MODULE_DIR})
 
 install(FILES
   filter_movit_blur.yml
+  filter_movit_convert.yml
+  filter_movit_crop.yml
   filter_movit_deconvolution_sharpen.yml
   filter_movit_diffusion.yml
   filter_movit_flip.yml
@@ -52,6 +60,8 @@ install(FILES
   filter_movit_mirror.yml
   filter_movit_opacity.yml
   filter_movit_rect.yml
+  filter_movit_resample.yml
+  filter_movit_resize.yml
   filter_movit_saturation.yml
   filter_movit_vignette.yml
   filter_movit_white_balance.yml

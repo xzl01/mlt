@@ -1,5 +1,5 @@
 add_library(mltplusgpl MODULE
-  cJSON.c
+  cJSON.c cJSON.h
   consumer_cbrts.c
   factory.c
   filter_burn.c
@@ -7,7 +7,12 @@ add_library(mltplusgpl MODULE
   filter_rotoscoping.c
   filter_telecide.c
   image.c
-  utils.c
+  utils.c utils.h
+)
+
+file(GLOB YML "*.yml")
+add_custom_target(Other_plsugpl_Files SOURCES
+  ${YML}
 )
 
 target_compile_options(mltplusgpl PRIVATE ${MLT_COMPILE_OPTIONS})
@@ -16,7 +21,7 @@ target_link_libraries(mltplusgpl PRIVATE mlt m Threads::Threads)
 
 if(WIN32)
   target_link_libraries(mltplusgpl PRIVATE ws2_32)
-elseif(UNIX AND NOT APPLE)
+elseif(UNIX AND NOT APPLE AND NOT ANDROID)
   target_link_libraries(mltplusgpl PRIVATE rt)
 endif()
 

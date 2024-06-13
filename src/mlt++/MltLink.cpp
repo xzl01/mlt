@@ -1,6 +1,6 @@
 /**
  * MltLink.cpp - MLT Wrapper
- * Copyright (C) 2020 Meltytech, LLC
+ * Copyright (C) 2020-2021 Meltytech, LLC
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -25,58 +25,85 @@
 
 using namespace Mlt;
 
-Link::Link( ) :
-	instance( nullptr )
+Link::Link()
+    : instance(nullptr)
+{}
+
+Link::Link(mlt_link link)
+    : instance(link)
 {
+    inc_ref();
 }
 
-Link::Link( mlt_link link )
- : instance( link )
+Link::Link(const char *id, const char *arg)
+    : instance(NULL)
 {
-	inc_ref( );
+    if (arg != NULL) {
+        instance = mlt_factory_link(id, arg);
+    } else {
+        if (strchr(id, ':')) {
+            char *temp = strdup(id);
+            char *arg = strchr(temp, ':') + 1;
+            *(arg - 1) = '\0';
+            instance = mlt_factory_link(temp, arg);
+            free(temp);
+        } else {
+            instance = mlt_factory_link(id, NULL);
+        }
+    }
 }
 
-Link::Link( const char *id, const char *arg ) :
-	instance( NULL )
+Link::Link(Link *link)
+    : Link(link ? link->get_link() : nullptr)
+{}
+
+Link::Link(Service &link)
+    : instance(nullptr)
 {
-	if ( arg != NULL )
-	{
-		instance = mlt_factory_link( id, arg );
-	}
-	else
-	{
-		if ( strchr( id, ':' ) )
-		{
-			char *temp = strdup( id );
-			char *arg = strchr( temp, ':' ) + 1;
-			*( arg - 1 ) = '\0';
-			instance = mlt_factory_link( temp, arg );
-			free( temp );
-		}
-		else
-		{
-			instance = mlt_factory_link( id, NULL );
-		}
-	}
+    if (link.type() == mlt_service_link_type) {
+        instance = (mlt_link) link.get_service();
+        inc_ref();
+    }
 }
 
-Link::~Link( )
+Link::Link(Link &link)
 {
-	mlt_link_close( instance );
+    if (link.type() == mlt_service_link_type) {
+        instance = (mlt_link) link.get_service();
+        inc_ref();
+    }
 }
 
-mlt_link Link::get_link( )
+Link::Link(const Link &link)
+    : Link(const_cast<Link &>(link))
+{}
+
+Link &Link::operator=(const Link &link)
 {
-	return instance;
+    if (this != &link) {
+        mlt_link_close(instance);
+        instance = link.instance;
+        inc_ref();
+    }
+    return *this;
 }
 
-mlt_producer Link::get_producer( )
+Link::~Link()
 {
-	return MLT_LINK_PRODUCER( instance );
+    mlt_link_close(instance);
 }
 
-int Link::connect_next( Mlt::Producer& next, Mlt::Profile& default_profile )
+mlt_link Link::get_link()
 {
-	return mlt_link_connect_next( instance, next.get_producer(), default_profile.get_profile() );
+    return instance;
 }
 
+mlt_producer Link::get_producer()
+{
+    return MLT_LINK_PRODUCER(instance);
+}
+
+int Link::connect_next(Mlt::Producer &next, Mlt::Profile &default_profile)
+{
+    return mlt_link_connect_next(instance, next.get_producer(), default_profile.get_profile());
+}

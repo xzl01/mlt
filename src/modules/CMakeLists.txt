@@ -16,6 +16,10 @@ if(MOD_GDK)
   add_subdirectory(gdk)
 endif()
 
+if(MOD_GLAXNIMATE OR MOD_GLAXNIMATE_QT6)
+  add_subdirectory(glaxnimate)
+endif()
+
 if(MOD_JACKRACK)
   add_subdirectory(jackrack)
 endif()
@@ -52,7 +56,7 @@ if(MOD_PLUSGPL)
   add_subdirectory(plusgpl)
 endif()
 
-if(MOD_QT)
+if(MOD_QT OR MOD_QT6)
   add_subdirectory(qt)
 endif()
 
@@ -78,6 +82,10 @@ endif()
 
 if(MOD_SOX)
   add_subdirectory(sox)
+endif()
+
+if(MOD_SPATIALAUDIO)
+  add_subdirectory(spatialaudio)
 endif()
 
 if(MOD_VIDSTAB)
